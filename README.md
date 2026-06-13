@@ -22,6 +22,8 @@ A starter Go project for learning [Claude Code](https://claude.ai/code) with Go.
 
 ## Getting started
 
+**CLI mode**
+
 ```sh
 go run . Atirek
 # Hello, Atirek!
@@ -30,13 +32,27 @@ go run .
 # Hello, World!
 ```
 
+**Server mode**
+
+```sh
+go run . --serve           # listens on :8080
+go run . --serve --port 9090
+
+# Endpoints
+curl http://localhost:8080/hello
+# Hello, World!
+curl http://localhost:8080/hello?name=Atirek
+# Hello, Atirek!
+```
+
 ## Common tasks
 
 ```sh
 make build   # compile the binary
+make run     # run CLI
+make serve   # start HTTP server on :8080
 make test    # run tests
 make fmt     # format the code
 make vet     # run go vet
-make run     # run the program
 make clean   # remove build artifacts
 ```

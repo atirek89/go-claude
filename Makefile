@@ -1,12 +1,15 @@
 BINARY := go-claude
 
-.PHONY: build run test fmt vet clean
+.PHONY: build run serve test fmt vet clean
 
 build:
 	go build -o $(BINARY) .
 
 run:
 	go run .
+
+serve:
+	go run . --serve
 
 test:
 	go test ./...
