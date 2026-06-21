@@ -2,6 +2,27 @@ package greeting
 
 import "testing"
 
+func TestGoodbye(t *testing.T) {
+	tests := []struct {
+		name  string
+		input string
+		want  string
+	}{
+		{name: "simple name", input: "Atirek", want: "Goodbye, Atirek!"},
+		{name: "empty falls back to World", input: "", want: "Goodbye, World!"},
+		{name: "whitespace falls back to World", input: "   ", want: "Goodbye, World!"},
+		{name: "trims surrounding whitespace", input: "  Go  ", want: "Goodbye, Go!"},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := Goodbye(tt.input); got != tt.want {
+				t.Errorf("Goodbye(%q) = %q, want %q", tt.input, got, tt.want)
+			}
+		})
+	}
+}
+
 func TestHello(t *testing.T) {
 	tests := []struct {
 		name  string

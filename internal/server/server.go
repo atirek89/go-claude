@@ -12,6 +12,9 @@ import (
 func New() *http.ServeMux {
 	mux := http.NewServeMux()
 	mux.HandleFunc("/hello", helloHandler)
+	mux.HandleFunc("/goodbye", goodbyeHandler)
+	mux.HandleFunc("/health", healthHandler)
+	mux.HandleFunc("/", notFoundHandler)
 	return mux
 }
 
@@ -24,4 +27,18 @@ func Run(addr string, mux *http.ServeMux) error {
 func helloHandler(w http.ResponseWriter, r *http.Request) {
 	name := r.URL.Query().Get("name")
 	fmt.Fprintln(w, greeting.Hello(name))
+}
+
+func goodbyeHandler(w http.ResponseWriter, r *http.Request) {
+	name := r.URL.Query().Get("name")
+	fmt.Fprintln(w, greeting.Goodbye(name))
+}
+
+func healthHandler(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
+	fmt.Fprintln(w, `{"status":"ok"}`)
+}
+
+func notFoundHandler(w http.ResponseWriter, r *http.Request) {
+	http.Error(w, "404 not found", http.StatusNotFound)
 }
